@@ -80,6 +80,17 @@ class robot:
         measurements = []
         
         ## TODO: iterate through all of the landmarks in a world
+        for idx, l in enumerate(self.landmarks):
+            dx = l[0] - self.x
+            dy = l[1] - self.y
+            
+            dx += self.rand() * self.measurement_noise
+            dy += self.rand() * self.measurement_noise
+            
+            if abs(dx) > self.measurement_range or abs(dy) > self.measurement_range:
+                continue
+            
+            measurements.append([idx, dx, dy])
         
         ## TODO: For each landmark
         ## 1. compute dx and dy, the distances between the robot and the landmark
